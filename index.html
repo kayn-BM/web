@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>bub</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="shortcut icon" href="IMG/logoo.jpg">
+</head>
+<body>
+<center>
+<div class="contenedor">
+    <br><br><br><br><br>
+
+    <div class="zona-hover">
+        <img src="IMG/imagen5.png" alt="Zona de movimiento" width="100" height="100">
+        <div class="cuadrado-hover">?</div>
+    </div>
+    
+    <br><br><br><br>
+    
+    <div class="texto-con-fondo">
+        DR.STONE
+    </div>
+    <br><br>
+    <button class="boton-final">k</button>
+    <br>
+</div>
+</center>
+
+<audio id="sonido" src="AUDIO/sonido2.mp3" preload="auto"></audio>
+<script>
+    const zona = document.querySelector('.zona-hover');
+    const sonido = document.getElementById('sonido');
+    const cuadrado = document.querySelector('.cuadrado-hover');
+
+    let sonidoReproduciéndose = false;
+
+    zona.addEventListener('mouseenter', () => {
+        if (!sonidoReproduciéndose) {
+            sonidoReproduciéndose = true;
+            sonido.currentTime = 0;
+            sonido.play();
+        }
+    });
+
+    zona.addEventListener('mouseleave', () => {
+        sonido.pause();
+        sonido.currentTime = 0;
+
+        // Esperar a que termine la transición de regreso
+        cuadrado.addEventListener('transitionend', function handler() {
+            sonidoReproduciéndose = false;
+            cuadrado.removeEventListener('transitionend', handler);
+        });
+    });
+</script>
+
+
+</body>
+</html>
